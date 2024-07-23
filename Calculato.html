@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container{
+        width: 100%;
+        height: 100vh;
+        background-color: rgb(175, 174, 163);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .calculator{
+        background-color: #2d3541;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .calculator form input{
+        border: 0;
+        outline: 0;
+        width: 60px;
+        height: 50px;
+        border-radius: 10px;
+        box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2);
+        background-color: transparent;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+        margin: 10px;
+    }
+    form .display{
+        display: flex;
+        justify-content: flex-end;
+        margin: 20px 0;
+    }
+
+    form .display input{
+        text-align: right;
+        flex: 1;
+        font-size: 45px;
+        box-shadow: none;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <form name="calcForm">
+                <div class="display">
+                    <input type="text" name="display" id="display" readonly style="border:2px #33ffd8 solid;">
+                </div>
+                <div>
+                    <input type="button" value="AC" onclick="clearDisplay()" class="operator" style="color: #33ffd8;">
+                    <input type="button" value="DE" onclick="deleteLast()" class="operator" style="color: #33ffd8;">
+                    <input type="button" value="." onclick="appendValue('.')" class="operator" style="color: #33ffd8;">
+                    <input type="button" value="/" onclick="appendValue('/')" class="operator" style="color: #33ffd8;">
+                </div>
+                <div>
+                    <input type="button" value="7" onclick="appendValue('7')">
+                    <input type="button" value="8" onclick="appendValue('8')">
+                    <input type="button" value="9" onclick="appendValue('9')">
+                    <input type="button" value="*" onclick="appendValue('*')" style="color: #33ffd8;">
+                </div>
+                <div>
+                    <input type="button" value="4" onclick="appendValue('4')">
+                    <input type="button" value="5" onclick="appendValue('5')">
+                    <input type="button" value="6" onclick="appendValue('6')">
+                    <input type="button" value="-" onclick="appendValue('-')" style="color: #33ffd8;">
+                </div>
+                <div>
+                    <input type="button" value="1" onclick="appendValue('1')">
+                    <input type="button" value="2" onclick="appendValue('2')">
+                    <input type="button" value="3" onclick="appendValue('3')">
+                    <input type="button" value="+" onclick="appendValue('+')" style="color: #33ffd8;">
+                </div>
+                <div>
+                    <input type="button" value="00" onclick="appendValue('00')">
+                    <input type="button" value="0" onclick="appendValue('0')">
+                    <input type="button" value="x²" onclick="square()" style="color: #33ffd8;">
+                    <input type="button" value="√" onclick="squareRoot()" style="color: #33ffd8;">
+                    
+                </div>
+                <div>
+                   <input type="button" value="=" onclick="calculate()" class="equal" style="width: 145px; color: #33ffd8;">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const display = document.calcForm.display;
+
+        function appendValue(value) {
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch (e) {
+                display.value = 'Error';
+                setTimeout(() => {
+                    clearDisplay();
+                }, 2000);
+            }
+        }
+
+        function square() {
+            try {
+                display.value = Math.pow(eval(display.value), 2);
+            } catch (e) {
+                display.value = 'Error';
+                setTimeout(() => {
+                    clearDisplay();
+                }, 2000);
+            }
+        }
+
+        function squareRoot() {
+            try {
+                display.value = Math.sqrt(eval(display.value));
+            } catch (e) {
+                display.value = 'Error';
+                setTimeout(() => {
+                    clearDisplay();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
